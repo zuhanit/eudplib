@@ -43,6 +43,7 @@ jobs:
           chmod -R 777 ./src/epscript
           if [[ ${{ matrix.os }} == windows-* ]]; then
             cmake --build ./src/epscript/build --config ${{ env.BUILD_TYPE }}
+            msbuild ALL_BUILD.vcxproj /p:Configuration=${{ env.BUILD_TYPE }} /p:Platform=x64
           else
             cmake --build ./src/epscript/build --config ${{ env.BUILD_TYPE }}
           fi
