@@ -25,16 +25,18 @@ jobs:
       
       - name: Configure CMake
         run: |
-          if [[ ${{ matrix.os }} == windows-* ]]; then
+          if [[ ${{ matrix.os }} == macos-* ]]; then
             cmake -B ./src/epscript/build \
                   -S ./src/epscript \
+                  -A ARM64
                   -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
           else
             cmake -B ./src/epscript/build \
                   -S ./src/epscript \
+                  -A x64
                   -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
           fi
-        
+          
         
       - name: Build
         run: |
