@@ -22,12 +22,17 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: recursive 
+        
+      - name: Debug Paths
+        run: |
+          echo "Workspace: ${{ github.workspace }}"
+          ls -al ${{ github.workspace }} 
       
       - name: Configure CMake
         run: |
           if [[ ${{ matrix.os }} == windows-* ]]; then
-            cmake -B ${{ github.workspace }}\\src\\epscript\\build \
-                  -S ${{ github.workspace }}\\src\\epscript \
+            cmake -B ${{ github.workspace }}/src/epscript/build \
+                  -S ${{ github.workspace }}/src/epscript \
                   -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
           else
             cmake -B ${{ github.workspace }}/src/epscript/build \
