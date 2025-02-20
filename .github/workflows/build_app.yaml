@@ -21,7 +21,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          submodules: recursive  
+          submodules: recursive
+      
+      - name: Cache CMake Build Directory
+        uses: actions/cache@v3
+        with:
+          path: ./src/epscript/build
+          key: cmake-build-${{ matrix.os }}-${{ env.BUILD_TYPE }}-${{ hashFiles('./src/epscript/build/**/*') }}
+          restore-keys: |
+            cmake-build-${{ matrix.os}}-${{ env.BUILD_TYPE }}
+            cmake-build-${{ matrix.os }}
+            cmake-build
       
       - name: Configure CMake
         run: |
