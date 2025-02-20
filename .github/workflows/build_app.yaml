@@ -21,12 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          submodules: recursive 
-        
-      - name: Debug Paths
-        run: |
-          echo "Workspace: ${{ github.workspace }}"
-          ls -al ${{ github.workspace }} 
+          submodules: recursive  
       
       - name: Configure CMake
         run: |
