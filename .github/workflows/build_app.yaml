@@ -38,7 +38,7 @@ jobs:
           if [[ ${{ matrix.os }} == macos-* ]]; then
             cmake -B ./src/epscript/build \
                   -S ./src/epscript \
-                  -A ARM64 \
+                  -A arm64 \
                   -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
           else
             cmake -B ./src/epscript/build \
