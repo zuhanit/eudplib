@@ -24,10 +24,10 @@ jobs:
           submodules: recursive 
       
       - name: Configure CMake
-        run: 
+        run:
           if [[ ${{ matrix.os }} == windows-* ]]; then
-            cmake -B ${{ github.workspace }}\\src\\epscript\\build \
-                  -S ${{ github.workspace }}\\src\\epscript \
+            cmake -B ${{ github.workspace }}//src//epscript//build \
+                  -S ${{ github.workspace }}//src//epscript \
                   -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
           else
             cmake -B ${{ github.workspace }}/src/epscript/build \
