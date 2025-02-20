@@ -31,21 +31,21 @@ jobs:
       - name: Configure CMake
         run: |
           if [[ ${{ matrix.os }} == windows-* ]]; then
-            cmake -B ${{ github.workspace }}/src/epscript/build \
-                  -S ${{ github.workspace }}/src/epscript \
+            cmake -B ./src/epscript/build \
+                  -S ./src/epscript \
                   -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
           else
-            cmake -B ${{ github.workspace }}/src/epscript/build \
-                  -S ${{ github.workspace }}/src/epscript \
+            cmake -B ./src/epscript/build \
+                  -S ./src/epscript \
                   -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
           fi
         
         
       - name: Build
         run: |
-          chmod -R 777 ${{ github.workspace }}/src/epscript
+          chmod -R 777 ./src/epscript
           if [[ ${{ matrix.os }} == windows-* ]]; then
-            cmake --build ${{ github.workspace }}\\src\\epscript\\build --config ${{ env.BUILD_TYPE }}
+            cmake --build ./src/epscript/build --config ${{ env.BUILD_TYPE }}
           else
-            cmake --build ${{ github.workspace }}/src/epscript/build --config ${{ env.BUILD_TYPE }}
+            cmake --build ./src/epscript/build --config ${{ env.BUILD_TYPE }}
           fi
