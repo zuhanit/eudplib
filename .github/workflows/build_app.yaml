@@ -24,8 +24,10 @@ jobs:
           submodules: recursive 
       
       - name: Configure CMake
-        run: cmake -B ${{ github.workspace }}/src/epscript/build -S ${{ github.workspace}}/src/epscript
+        run: cmake -B ${{ github.workspace }}/src/epscript/build -S ${{ github.workspace }}/src/epscript
               -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
         
       - name: Build
-        run: cmake --build ${{ github.workspace }}/src/epscript/build --config ${{ env.BUILD_TYPE }}
+        run: |
+          chmod -R 777 ${{ github.workspace }}/src/epscript
+          cmake --build ${{ github.workspace }}/src/epscript/build --config ${{ env.BUILD_TYPE }}
