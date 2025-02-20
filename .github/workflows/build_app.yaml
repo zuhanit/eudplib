@@ -21,8 +21,8 @@ jobs:
           submodules: recursive 
       
       - name: Configure CMake
-        run: cmake -B /src/epscript/build -S /src/epscript
+        run: cmake -B ${{ github.workspace }}/src/epscript/build -S ${{ github .workspace}}/src/epscript \
               -DCMAKE_BUILD_TYPE=Release
         
       - name: Build
-        run: cmake --build /src/epscript/build --config Release
+        run: cmake --build ${{ github.workspace}}/src/epscript/build --config Release
