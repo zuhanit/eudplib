@@ -3,6 +3,9 @@ on:
   release:
     types: [created]
   workflow_dispatch: 
+  
+env:
+  BUILD_TYPE: Release
     
 jobs:
   build_libepScript:
@@ -21,8 +24,8 @@ jobs:
           submodules: recursive 
       
       - name: Configure CMake
-        run: cmake -B ${{ github.workspace }}/src/epscript/build -S ${{ github .workspace}}/src/epscript \
-              -DCMAKE_BUILD_TYPE=Release
+        run: cmake -B ${{ github.workspace }}/src/epscript/build -S ${{ github.workspace}}/src/epscript
+              -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
         
       - name: Build
-        run: cmake --build ${{ github.workspace}}/src/epscript/build --config Release
+        run: cmake --build ${{ github.workspace }}/src/epscript/build --config ${{ env.BUILD_TYPE }}
