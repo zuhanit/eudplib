@@ -61,6 +61,8 @@ jobs:
           fi
           
   build_eudplib:
+    needs:
+      build_libepScript
     strategy: 
       fail-fast: false
       matrix:
