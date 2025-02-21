@@ -52,6 +52,12 @@ jobs:
                   -S ./src/epscript \
                   -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
           fi
+      
+      - name: Build lemon2 on Ubuntu
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          gcc ./src/epscript/lemon2.c -o ./src/epscript/lemon2
+        
         
       - name: Build
         if: steps.epscript-cache.outputs.cache-hit != 'true'
