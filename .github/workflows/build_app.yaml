@@ -89,6 +89,7 @@ jobs:
           uv pip install maturin
       
       - name: Build app
+        run: |
           if [[ ${{ matrix.os }} == windows-* ]]; then
             source .venv/Scripts/activate
           else
