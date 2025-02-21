@@ -50,10 +50,6 @@ jobs:
                   -S ./src/epscript \
                   -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
           fi
-          
-      - name: Setup MSBuild (Windows Only)
-        if: startsWith(matrix.os, 'windows')
-        uses: microsoft/setup-msbuild@v2
         
       - name: Build
         run: |
