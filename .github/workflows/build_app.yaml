@@ -29,10 +29,6 @@ jobs:
         with:
           path: ./src/epscript/build
           key: cmake-build-${{ matrix.os }}-${{ env.BUILD_TYPE }}-${{ hashFiles('./src/epscript/**/*') }}
-          restore-keys: |
-            cmake-build-${{ matrix.os}}-${{ env.BUILD_TYPE }}
-            cmake-build-${{ matrix.os }}
-            cmake-build
       
       - name: Configure CMake
         if: steps.epscript-cache.outputs.cache-hit != 'true'
