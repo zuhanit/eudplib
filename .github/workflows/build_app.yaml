@@ -24,6 +24,7 @@ jobs:
           submodules: recursive
       
       - name: Cache CMake Build Directory
+        id: epscript-cache
         uses: actions/cache@v3
         with:
           path: ./src/epscript/build
@@ -34,6 +35,7 @@ jobs:
             cmake-build
       
       - name: Configure CMake
+        if: steps.epscript-cache.outputs.cache-hit != 'true'
         run: |
           if [[ ${{ matrix.os }} == macos-* ]]; then
             cmake -B ./src/epscript/build \
@@ -52,6 +54,7 @@ jobs:
           fi
         
       - name: Build
+        if: steps.epscript-cache.outputs.cache-hit != 'true'
         run: |
           chmod -R 777 ./src/epscript
           if [[ ${{ matrix.os }} == windows-* ]]; then
