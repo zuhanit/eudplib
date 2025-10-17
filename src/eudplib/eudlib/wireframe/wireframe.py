@@ -127,7 +127,10 @@ class InitialWireframe:
             def init32(ptr, src, data):
                 if not src:
                     return
-                key_min = min(min(src.keys()), 5)  # Terran Siege Tank (Tank Mode)
+                # note: Default initial wireframe data are incorrect for
+                # Goliath tranwire, Siege Tank, High Templar wireframes.
+                # So those can't be used as is and should be always fixed.
+                key_min = min(min(src.keys()), 3)  # Terran Goliath
                 key_max = max(max(src.keys()), 87)  # Aldaris (Templar)
 
                 def wf(n):
