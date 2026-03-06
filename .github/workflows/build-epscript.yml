@@ -15,27 +15,18 @@ jobs:
         with:
           submodules: recursive
 
-      - uses: msys2/setup-msys2@v2
-        with:
-          msystem: MINGW64
-          update: true
-          install: >-
-            mingw-w64-x86_64-toolchain
-            mingw-w64-x86_64-cmake
-
       - name: Build epscript
-        shell: msys2 {0}
         working-directory: src/epscript
         run: |
-          mkdir -p cmake-release
+          mkdir cmake-release
           cd cmake-release
-          cmake -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release ..
-          cmake --build . --target epScriptLib -- -j4
+          cmake -DCMAKE_BUILD_TYPE=Release ..
+          cmake --build . --config Release --target epScriptLib
 
       - uses: actions/upload-artifact@v4
         with:
           name: windows-lib
-          path: src/epscript/cmake-release/libepScriptLib.dll
+          path: src/epscript/cmake-release/Release/epScriptLib.dll
 
   build-linux:
     runs-on: ubuntu-latest
@@ -97,6 +88,9 @@ jobs:
         with:
           name: windows-lib
           path: src/eudplib/epscript/
+
+      - name: Rename Windows DLL
+        run: mv src/eudplib/epscript/epScriptLib.dll src/eudplib/epscript/libepScriptLib.dll
 
       - uses: actions/download-artifact@v4
         with:
