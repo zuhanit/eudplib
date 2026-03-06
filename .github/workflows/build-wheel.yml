@@ -1,0 +1,30 @@
+name: Build wheel
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Build epscript libraries"]
+    types: [completed]
+
+jobs:
+  build-wheel:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Build wheel
+        run: uv build --wheel
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: eudplib-wheel
+          path: dist/*.whl
