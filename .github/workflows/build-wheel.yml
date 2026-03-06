@@ -9,7 +9,16 @@ on:
 jobs:
   build-wheel:
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            artifact-name: eudplib-wheel-linux
+          - os: windows-latest
+            artifact-name: eudplib-wheel-windows
+          - os: macos-latest
+            artifact-name: eudplib-wheel-macos
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -21,13 +30,18 @@ jobs:
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
 
-      - name: Install system dependencies
+      - name: Install system dependencies (Linux)
+        if: runner.os == 'Linux'
         run: sudo apt-get install -y libbz2-dev
+
+      - name: Install system dependencies (macOS)
+        if: runner.os == 'macOS'
+        run: brew install bzip2
 
       - name: Build wheel
         run: uv build --wheel
 
       - uses: actions/upload-artifact@v4
         with:
-          name: eudplib-wheel
+          name: ${{ matrix.artifact-name }}
           path: dist/*.whl
